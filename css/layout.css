@@ -1456,7 +1456,7 @@ button.pulse-button:focus {
 
 	/* Single */
 	#single-header,
-	#archive-header { margin: 0 0 60px 0; background: #000; text-align: center;}
+	#archive-header { margin: 0 0 60px 0; background: #336d31; text-align: center;}
 		#single-header .author-avatar img { display: inline-block; margin: 0 auto 5px auto; width: 80px; height: 80px; border-radius: 40px;}
 		#single-header h1 { text-transform: uppercase; font-weight: 800; color: #fff;}
 			#single-header h2,
