@@ -46,7 +46,7 @@ $ct_user_profile = isset( $ct_options['ct_profile'] ) ? esc_html( $ct_options['c
                 <?php do_action('middle_user_sidebar_menu'); ?>
                 <?php if(in_array('administrator', (array) $current_user->roles) || in_array('editor', (array) $current_user->roles) || in_array('author', (array) $current_user->roles) || in_array('contributor', (array) $current_user->roles) || in_array('seller', (array) $current_user->roles) || in_array('agent', (array) $current_user->roles) || in_array('broker', (array) $current_user->roles)) { ?>
                     <?php if(!empty($ct_submit_listing) && $ct_options['ct_enable_front_end'] == 'yes') { ?>
-                        <li class="submit-listing"><a <?php if(is_page($ct_submit_listing)) { echo 'class="current"'; } ?> href="<?php echo get_page_link($ct_submit_listing); ?>"><i class="fa fa-plus"></i> <?php esc_html_e('Cadastrar imóveis, 'contempo'); ?></a></li>
+                        <li class="submit-listing"><a <?php if(is_page($ct_submit_listing)) { echo 'class="current"'; } ?> href="<?php echo get_page_link($ct_submit_listing); ?>"><i class="fa fa-plus"></i> <?php esc_html_e('Cadastrar imóveis', 'contempo'); ?></a></li>
                     <?php } ?>
                     <?php if(!empty($ct_view_user_listings) && $ct_options['ct_enable_front_end'] == 'yes') { ?>
                         <li class="my-listings"><a <?php if(is_page($ct_view_user_listings)) { echo 'class="current"'; } ?> href="<?php echo get_page_link($ct_view_user_listings); ?>"><i class="fa fa-th-list"></i> <?php esc_html_e('Meus Anúncios', 'contempo'); ?> (<?php echo esc_html($ct_user_listings_count); ?>)</a></li>

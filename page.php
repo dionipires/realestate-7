@@ -66,14 +66,14 @@ if($inside_page_title == "Yes") {
 			<!-- //Inner Content -->
 
 			<!-- Comments -->
-	        <?php if ( comments_open() || '0' != get_comments_number() ) :
+	        <!-- <?php if ( comments_open() || '0' != get_comments_number() ) :
 
 		        echo '<div class="clear"></div>';
 
 	        	// If comments are open or we have at least one comment, load up the comment template
 				comments_template();
 			
-			endif; ?>
+			endif; ?> -->
 			<!-- End Comments -->
 				<div class="clear"></div>
 		</div>
