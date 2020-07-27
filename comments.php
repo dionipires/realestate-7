@@ -19,7 +19,7 @@
 <?php do_action('before_post_comments'); ?>
 
 <!-- Comments -->
-<div id="comments-template" style="display: none">
+<div id="comments-template">
 
 	<div class="comments-wrap">
 
