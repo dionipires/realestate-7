@@ -5715,7 +5715,7 @@ if(!function_exists('ct_propinfo')) {
 					if($ct_use_propinfo_icons != 'icons') {
 		    			_e('Pets', 'contempo');
 		    		} else {
-		    			echo '<i class="fa fa-paw"></i>';
+		    			echo '<i class="fa fa-usd"></i>';
 		    		}
 				echo '</span>';
 				echo '<span class="right">';

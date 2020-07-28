@@ -292,7 +292,7 @@ if(isset($_POST['submitted']) && isset($_POST['post_nonce_field']) && wp_verify_
         // Update Custom Meta
         update_post_meta($post_id, '_ct_listing_alt_title', esc_attr(strip_tags($_POST['customMetaAltTitle'])));
         update_post_meta($post_id, '_ct_price', esc_attr(strip_tags($ct_price)));
-        update_post_meta($post_id, '_ct_price_prefix', esc_attr(strip_tags($_POST['customMetaPricePrefix'])));
+        // update_post_meta($post_id, '_ct_price_prefix', esc_attr(strip_tags($_POST['customMetaPricePrefix'])));
         update_post_meta($post_id, '_ct_price_postfix', esc_attr(strip_tags($_POST['customMetaPricePostfix'])));
         update_post_meta($post_id, '_ct_sqft', esc_attr(strip_tags($_POST['customMetaSqFt'])));
         update_post_meta($post_id, '_ct_lotsize', esc_attr(strip_tags($_POST['customMetaLotSize'])));
@@ -410,20 +410,32 @@ if($inside_page_title == "Yes") {
 
                     <fieldset class="col span_10 first form-section">
 
-                        <div class="col span_6 first">
+                        <div class="col span_4 first">
                             <label><?php esc_html_e('Street Address', 'contempo'); ?></label>
                             <input type="text" name="postTitle" id="postTitle" value="<?php echo esc_attr($title); ?>" <?php if($ct_front_submit_street_address == 'required') { echo 'required'; } ?> />
                         </div>
 
-                        <div class="col span_6">
+                        <div class="col span_4">
                             <label><?php esc_html_e('Alternate Title', 'contempo'); ?></label>
                             <input type="text" name="customMetaAltTitle" id="customMetaAltTitle" value="<?php echo esc_html($alt_title); ?>" placeholder="<?php esc_html_e('(e.g. Downtown Penthouse)', 'contempo'); ?>" <?php if($ct_front_submit_alt_title == 'required') { echo 'required'; } ?> />
+                        </div>
+
+                        <div class="col span_4">
+                            <label><?php esc_html_e('Destaque', 'contempo'); ?></label>
+                            <?php 
+                                $taxonomy_name = 'ct_status';
+                                $name = strip_tags( get_the_term_list( $current_post, 'ct_status', '', ', ', '' ) );
+                            ?>
+                            <select id="ct_featured_status" name="ct_featured_status">
+                                <option value="">No</option>
+                                <option value="featured" <?php if($name == 'Featured') { echo 'selected="selected" '; } ?>>Yes</option>
+                            </select>
                         </div>
 
                             <div class="clear"></div>
 
                         <div class="col span_4 first">
-                            <label><?php esc_html_e('Type', 'contempo'); ?></label>
+                            <label><?php esc_html_e('Tipo de Propriedade', 'contempo'); ?></label>
                             <?php 
                                 $taxonomy_name = 'property_type';
                                 $name = strip_tags( get_the_term_list( $current_post, 'property_type', '', ', ', '' ) );
@@ -438,7 +450,7 @@ if($inside_page_title == "Yes") {
                         </div>
 
                         <div class="col span_4">
-                            <label><?php esc_html_e('Status', 'contempo'); ?></label>
+                            <label><?php esc_html_e('Tipo de Negócio', 'contempo'); ?></label>
                             <?php 
                                 $taxonomy_name = 'ct_status';
                                 $name = strip_tags( get_the_term_list( $current_post, 'ct_status', '', ', ', '' ) );
@@ -452,37 +464,41 @@ if($inside_page_title == "Yes") {
                             </select>
                         </div>
 
-                        <div class="col span_4">
-                            <label><?php esc_html_e('Featured', 'contempo'); ?></label>
-                            <?php 
-                                $taxonomy_name = 'ct_status';
-                                $name = strip_tags( get_the_term_list( $current_post, 'ct_status', '', ', ', '' ) );
-                            ?>
-                            <select id="ct_featured_status" name="ct_featured_status">
-                                <option value="">No</option>
-                                <option value="featured" <?php if($name == 'Featured') { echo 'selected="selected" '; } ?>>Yes</option>
-                            </select>
+                        <div class="col span_4 ">
+                            <label><?php esc_html_e('Property ID', 'contempo'); ?></label>
+                            <input type="text" name="customMetaMLS" id="customMetaMLS" value="<?php echo esc_attr($ct_mls); ?>" <?php if($ct_front_submit_property_id == 'required') { echo 'required'; } ?> />
                         </div>
 
                             <div class="clear"></div>
 
-                        <div class="col span_4 first marT15">
-                            <label><?php esc_html_e('Price', 'contempo'); ?> (<?php ct_currency(); ?>)</label>
+                        <div class="col span_6 first marT15">
+                            <label><?php esc_html_e('Preço', 'contempo'); ?> (<?php ct_currency(); ?>)</label>
                             <input type="number" name="customMetaPrice" id="customMetaPrice" value="<?php echo esc_html($ct_price); ?>" <?php if($ct_front_submit_price == 'required') { echo 'required'; } ?> />
                         </div>
-
-                        <div class="col span_4 marT15">
-                            <label><?php esc_html_e('Price Prefix', 'contempo'); ?></label>
-                            <input type="text" name="customMetaPricePrefix" id="customMetaPricePrefix" placeholder="<?php esc_html_e(' (e.g. From, Call for price)', 'contempo'); ?>" value="<?php echo esc_html($ct_price_prefix); ?>" <?php if($ct_front_submit_price_prefix == 'required') { echo 'required'; } ?> />
-                        </div>
-
-                        <div class="col span_4 marT15">
-                            <label><?php esc_html_e('Price Postfix Text', 'contempo'); ?></label>
+                        
+                        <div class="col span_6 marT15">
+                            <label><?php esc_html_e('Texto após o preço', 'contempo'); ?></label>
                             <input type="text" name="customMetaPricePostfix" id="customMetaPricePostfix" placeholder="<?php esc_html_e(' (e.g. /month, /week)', 'contempo'); ?>" value="<?php echo esc_html($ct_price_postfix); ?>" <?php if($ct_front_submit_price_postfix == 'required') { echo 'required'; } ?> />
                         </div>
 
+                        <!-- <div class="col span_4 marT15">
+                            <label><?php esc_html_e('Price Prefix', 'contempo'); ?></label>
+                            <input type="text" name="customMetaPricePrefix" id="customMetaPricePrefix" placeholder="<?php esc_html_e(' (e.g. From, Call for price)', 'contempo'); ?>" value="<?php echo esc_html($ct_price_prefix); ?>" <?php if($ct_front_submit_price_prefix == 'required') { echo 'required'; } ?> />
+                        </div> -->
+
+
                         <div class="clear"></div>
 
+                        <div class="col span_4 first marT15">
+                            <label><?php esc_html_e('Condomínio', 'contempo'); ?></label>
+                            <input type="text" name="customMetaParking" id="customMetaParking" value="<?php echo esc_attr($ct_parking); ?>" <?php if($ct_front_submit_parking == 'required') { echo 'required'; } ?> />
+                        </div>
+
+                        <div class="col span_4 marT15">
+                            <label><?php esc_html_e('IPTU', 'contempo'); ?></label>
+                            <input type="text" name="customMetaPets" id="customMetaPets" value="<?php echo esc_attr($ct_pets); ?>" <?php if($ct_front_submit_pets == 'required') { echo 'required'; } ?> />
+                        </div>
+                        <div class="clear"></div>
                         <!-- <div class="col span_4 first marT15">
                             <label><?php esc_html_e('Condomínio', 'contempo'); ?></label>
                             <input type="text" name="condominio" id="condominio" placeholder="<?php esc_html_e(' (exe. 2.500)', 'contempo'); ?>" value="" <?php if($ct_front_submit_condominio == 'required') { echo 'required'; } ?> />
@@ -712,34 +728,9 @@ if($inside_page_title == "Yes") {
                             <input type="number" name="customMetaSqFt" id="customMetaSqFt" value="<?php echo esc_attr($ct_sqft); ?>" <?php if($ct_front_submit_size == 'required') { echo 'required'; } ?> />
                         </div>
 
-                        <div class="col span_4 first">
-                            <label><?php esc_html_e('Lot Size', 'contempo'); ?></label>
+                        <div class="col span_6 first">
+                            <label><?php esc_html_e('Tamanho do Lote', 'contempo'); ?></label>
                             <input type="number" name="customMetaLotSize" id="customMetaLotSize" value="<?php echo esc_attr($ct_lotsize); ?>" <?php if($ct_front_submit_lot_size == 'required') { echo 'required'; } ?> />
-                        </div>
-
-                        <!-- <div class="col span_4">
-                            <label><?php esc_html_e('Pets', 'contempo'); ?></label>
-                            <input type="text" name="customMetaPets" id="customMetaPets" value="<?php echo esc_attr($ct_pets); ?>" <?php if($ct_front_submit_pets == 'required') { echo 'required'; } ?> />
-                        </div> -->
-
-                        <div class="col span_4 marT15">
-                            <label><?php esc_html_e('Condomínio', 'contempo'); ?></label>
-                            <input type="text" name="condominio" id="condominio" placeholder="<?php esc_html_e(' (ex. 2.000)', 'contempo'); ?>" value="<?php if(isset($_POST['condominio'])) echo esc_attr($_POST['condominio']);?>" <?php if($ct_front_submit_condominio == 'required') { echo 'required'; } ?> />
-                        </div> 
-
-                        <div class="col span_4 marT15">
-                            <label><?php esc_html_e('IPTU Anual', 'contempo'); ?></label>
-                            <input type="text" name="iptu" id="iptu" placeholder="<?php esc_html_e(' (exe. 7500 se não houver digite 0)', 'contempo'); ?>" value="<?php if(isset($_POST['iptu'])) echo esc_attr($_POST['iptu']);?>" <?php if($ct_front_submit_iptu == 'required') { echo 'required'; } ?> />
-                        </div>
-
-                        <div class="col span_4 first">
-                            <label><?php esc_html_e('Parking', 'contempo'); ?></label>
-                            <input type="text" name="customMetaParking" id="customMetaParking" value="<?php echo esc_attr($ct_parking); ?>" <?php if($ct_front_submit_parking == 'required') { echo 'required'; } ?> />
-                        </div>
-
-                        <div class="col span_6 ">
-                            <label><?php esc_html_e('Property ID', 'contempo'); ?></label>
-                            <input type="text" name="customMetaMLS" id="customMetaMLS" value="<?php echo esc_attr($ct_mls); ?>" <?php if($ct_front_submit_property_id == 'required') { echo 'required'; } ?> />
                         </div>
 
                         <div class="col span_6">
@@ -756,7 +747,7 @@ if($inside_page_title == "Yes") {
 
                             <div class="clear"></div>
 
-                        <div id="listing-open-house">
+                        <!-- <div id="listing-open-house">
 
                             <h5 class="marT0 border-bottom"><?php _e('Open House', 'contempo'); ?></h5>
 
@@ -777,7 +768,7 @@ if($inside_page_title == "Yes") {
 
                                 <div class="clear"></div>
 
-                        </div>
+                        </div> -->
 
                             <div class="clear"></div>
 
@@ -856,40 +847,38 @@ if($inside_page_title == "Yes") {
                         </script>
 
                         <div class="input-full-width">
-                            <label><?php esc_html_e('Address', 'contempo'); ?></label>
+                            <label><?php esc_html_e('Endereço Completo', 'contempo'); ?></label>
                             <input type="text" name="pac-input" id="pac-input" value="<?php echo esc_html($title); ?> <?php echo esc_attr($ct_city); ?> <?php echo esc_attr($ct_state); ?> <?php echo esc_attr($ct_zip); ?> <?php if(!empty($ct_country)) { echo esc_attr($ct_country); } ?>" placeholder="<?php _e('Type in an address', 'contempo'); ?>" <?php if($ct_front_submit_address == 'required') { echo 'required'; } ?> />
                             <div id="autocomplete-results"></div>
                         </div>
 
-                        <div class="col span_4 first">
+                        <div class="col span_6 first">
+                            <label><?php ct_zip_or_post(); ?></label>
+                            <input type="text" name="customTaxZip" id="customTaxZip" value="<?php echo esc_attr($ct_zip); ?>" <?php if($ct_front_submit_zip_post == 'required') { echo 'required'; } ?> />
+                        </div>
+                        <div class="col span_6 ">
                             <label><?php ct_city_town_or_village(); ?></label>
                             <input type="text" name="customTaxCity" id="customTaxCity" value="<?php echo esc_attr($ct_city); ?>" <?php if($ct_front_submit_city == 'required') { echo 'required'; } ?> />
                         </div>
 
-                        <div class="col span_4">
+                        <div class="col span_6 first">
                             <label><?php ct_state_or_area(); ?></label>
                             <input type="text" name="customTaxState" id="customTaxState" value="<?php echo esc_attr($ct_state); ?>" <?php if($ct_front_submit_state == 'required') { echo 'required'; } ?> />
                         </div>
 
-                        <div class="col span_4">
-                            <label><?php ct_zip_or_post(); ?></label>
-                            <input type="text" name="customTaxZip" id="customTaxZip" value="<?php echo esc_attr($ct_zip); ?>" <?php if($ct_front_submit_zip_post == 'required') { echo 'required'; } ?> />
-                        </div>
-
-                        <div class="col span_4 first">
-                            <label><?php esc_html_e('County', 'contempo'); ?></label>
-                            <input type="text" name="customTaxCounty" id="customTaxCounty" value="<?php echo esc_attr($ct_county); ?>" <?php if($ct_front_submit_county == 'required') { echo 'required'; } ?> />
-                        </div>
-                        
-                        <div class="col span_4">
-                            <label><?php esc_html_e('Country', 'contempo'); ?></label>
+                        <div class="col span_6">
+                            <label><?php esc_html_e('País', 'contempo'); ?></label>
                             <input type="text" name="customTaxCountry" id="customTaxCountry" value="<?php echo esc_attr($ct_country); ?>" <?php if($ct_front_submit_country == 'required') { echo 'required'; } ?> />
                         </div>
-
-                        <div class="col span_4">
+                        <!-- <div class="col span_4 first">
+                            <label><?php esc_html_e('County', 'contempo'); ?></label>
+                            <input type="text" name="customTaxCounty" id="customTaxCounty" value="<?php echo esc_attr($ct_county); ?>" <?php if($ct_front_submit_county == 'required') { echo 'required'; } ?> />
+                        </div> -->
+                        
+                        <!-- <div class="col span_4">
                             <label><?php ct_community_neighborhood_or_district(); ?></label>
                             <input type="text" name="customTaxCommunity" id="customTaxCommunity" value="<?php echo esc_attr($ct_community); ?>" <?php if($ct_front_submit_community == 'required') { echo 'required'; } ?> />
-                        </div>
+                        </div> -->
 
                         <div class="col span_12 first">
                             <input type="text" name="customMetaLatLng" id="customMetaLatLng"  placeholder="<?php esc_html_e('Latitude & Longitude (optional)', 'contempo'); ?>" value="<?php echo esc_attr($ct_latlng); ?>" <?php if($ct_front_submit_lat_long == 'required') { echo 'required'; } ?> />

@@ -1984,7 +1984,7 @@ msgstr "Detalhes"
 #: admin/theme-functions.php:4971 includes/single-listing-sub-navigation.php:86
 #: admin/ReduxFramework/theme-options/re7-config.php:4479
 msgid "Rental Info"
-msgstr "Aluguer De Informações"
+msgstr "INFORMAÇÕES PARA ALUGUEL"
 
 #: admin/theme-functions.php:4973 includes/single-listing-map.php:18
 #: includes/single-listing-sub-navigation.php:145
@@ -2871,7 +2871,7 @@ msgstr ""
 
 #: includes/single-listing-rental-info.php:25
 msgid "Rental Information"
-msgstr "Aluguer De Informações"
+msgstr "INFORMAÇÕES PARA ALUGUEL"
 
 #: includes/single-listing-sub-listings.php:23
 msgid "Other Listings in Neighborhood"
